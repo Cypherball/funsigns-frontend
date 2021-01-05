@@ -39,13 +39,13 @@ $background: #f8f8f8;
 $alt_background: #e8e8e8;
 $text_color: #fff;
 $text_color_secondary: #a4b3b6;
-$highlight_color: #00487c;
-$alt_highlight_color: #7ec9ff;
+$highlight_color: $pink;
+$alt_highlight_color: $blue;
 $normal_text_font: 'Roboto';
 $fa-font-path: '../webfonts';
 
 $body-bg: #2a1b3d !default;
-$body-color: $gray-200 !default;
+$body-color: $text_color !default;
 $nav-bg: #1c1229 !default;
 
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
@@ -243,13 +243,12 @@ nav {
 
 footer {
   background-color: $nav-bg;
-  color: $text_color_secondary;
   text-align: center;
   width: 100%;
   font-family: $normal_text_font;
   a {
     text-decoration: none;
-    color: #f8f9fa;
+    //color: #f8f9fa;
     &:hover {
       //color: #fff;
       color: $alt_highlight_color;
