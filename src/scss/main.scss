@@ -1,53 +1,4 @@
-//----------------------------VARIABLES------------------------------
-$white: #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black: #000 !default;
-
-$blue: #007bff !default;
-$indigo: #6610f2 !default;
-$purple: #6f42c1 !default;
-$pink: #e83e8c !default;
-$red: #dc3545 !default;
-$orange: #fd7e14 !default;
-$yellow: #ffc107 !default;
-$green: #28a745 !default;
-$teal: #20c997 !default;
-$cyan: #17a2b8 !default;
-
-$primary: #d83f87 !default;
-$secondary: #44318d !default;
-$success: $green !default;
-$info: $orange !default;
-$warning: $yellow !default;
-$danger: $red !default;
-$light: $gray-100 !default;
-$dark: $gray-800 !default;
-
-$font-size-base: 1.1rem !default;
-$line-height-base: 2 !default;
-
-$navbar_height: 6vh;
-$background: #f8f8f8;
-$alt_background: #e8e8e8;
-$text_color: #fff;
-$text_color_secondary: #a4b3b6;
-$highlight_color: $pink;
-$alt_highlight_color: $blue;
-$normal_text_font: 'Roboto';
-$fa-font-path: '../webfonts';
-
-$body-bg: #2a1b3d !default;
-$body-color: $text_color !default;
-$nav-bg: #1c1229 !default;
-
+@import './custom-variables.scss';
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../../node_modules/hover.css/css/hover-min.css';
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
@@ -175,27 +126,27 @@ nav {
   transition: height 0.5s ease-in-out;
 }
 
-@media only screen and (max-width: 992px) {
-  .navbar-brand {
-    #brand-logo {
-      display: inline-block;
-    }
-    #brand-name {
-      display: none;
-    }
-  }
-}
+// @media only screen and (max-width: 992px) {
+//   .navbar-brand {
+//     #brand-logo {
+//       display: inline-block;
+//     }
+//     #brand-name {
+//       display: none;
+//     }
+//   }
+// }
 
-@media only screen and (min-width: 992px) {
-  .navbar-brand {
-    #brand-logo {
-      display: none;
-    }
-    #brand-name {
-      display: block;
-    }
-  }
-}
+// @media only screen and (min-width: 992px) {
+//   .navbar-brand {
+//     #brand-logo {
+//       display: none;
+//     }
+//     #brand-name {
+//       display: block;
+//     }
+//   }
+// }
 
 @media (min-width: 992px) {
   .animate {

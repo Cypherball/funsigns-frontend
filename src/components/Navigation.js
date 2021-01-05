@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { Link, withRouter } from 'react-router-dom'
-//import logo from '../images/logo.png'
+import logo from '../images/logo.png'
 
 class Navigation extends Component {
   constructor(props) {
@@ -34,7 +34,12 @@ class Navigation extends Component {
               this.setState({ expanded: false, dropdownShow: false })
             }}
           >
-            {/* img id='brand-logo' alt='Logo' src={logo} className='align-top' /> */}
+            <img
+              id='brand-logo'
+              alt='Logo'
+              src={logo}
+              className='align-top mr-3'
+            />
             <span id='brand-name'>Funsigns</span>
           </Link>
 
