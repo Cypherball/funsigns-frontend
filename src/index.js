@@ -1,17 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { Component } from 'react'
+import { Provider } from 'react-redux'
+import { createStore, compose, applyMiddleware } from 'redux'
+import ReactDOM from 'react-dom'
+import reducers from './reducers'
+import App from './components/App'
+import './scss/main.scss'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+class Index extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+  composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  store = createStore(reducers, this.composeEnhancers(applyMiddleware()))
+
+  render() {
+    return (
+      <Provider store={this.store}>
+        <App />
+      </Provider>
+    )
+  }
+}
+
+ReactDOM.render(<Index />, document.querySelector('#root'))

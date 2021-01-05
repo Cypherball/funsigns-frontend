@@ -1,0 +1,265 @@
+//----------------------------VARIABLES------------------------------
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+
+$blue: #007bff !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #e83e8c !default;
+$red: #dc3545 !default;
+$orange: #fd7e14 !default;
+$yellow: #ffc107 !default;
+$green: #28a745 !default;
+$teal: #20c997 !default;
+$cyan: #17a2b8 !default;
+
+$primary: #d83f87 !default;
+$secondary: #44318d !default;
+$success: $green !default;
+$info: $orange !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-100 !default;
+$dark: $gray-800 !default;
+
+$font-size-base: 1.1rem !default;
+$line-height-base: 2 !default;
+
+$navbar_height: 6vh;
+$background: #f8f8f8;
+$alt_background: #e8e8e8;
+$text_color: #fff;
+$text_color_secondary: #a4b3b6;
+$highlight_color: #00487c;
+$alt_highlight_color: #7ec9ff;
+$normal_text_font: 'Roboto';
+$fa-font-path: '../webfonts';
+
+$body-bg: #2a1b3d !default;
+$body-color: $gray-200 !default;
+$nav-bg: #1c1229 !default;
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../../node_modules/hover.css/css/hover-min.css';
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $primary;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $alt_highlight_color;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $secondary;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  color: $primary;
+  font-family: 'Luckiest Guy', cursive;
+}
+
+.font-normal {
+  font-family: 'Roboto', sans-serif;
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+img {
+  max-height: 300px;
+}
+
+.alt {
+  background-color: $alt_background;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.anchor-plain {
+  a:link {
+    color: $text_color;
+  }
+
+  a:visited {
+    color: $text_color;
+  }
+
+  a:hover {
+    color: $text_color;
+    text-decoration: none;
+  }
+
+  a:active {
+    color: $text_color;
+  }
+}
+
+nav {
+  background-color: $nav_bg;
+  min-height: 8vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-menu {
+  background-color: $nav_bg !important;
+  a {
+    color: #fff !important;
+  }
+  a:hover {
+    color: #000 !important;
+    background-color: $alt_highlight_color !important;
+  }
+  animation-duration: 0.3s;
+  -webkit-animation-duration: 0.3s;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+  -webkit-animation-name: slideIn;
+  animation-name: slideIn;
+}
+
+#brand-logo {
+  display: inline-block;
+  width: auto;
+  height: 5vh;
+}
+
+#brand-name {
+  font-family: 'Luckiest Guy', cursive;
+}
+
+#basic-navbar-nav {
+  transition: height 0.5s ease-in-out;
+}
+
+@media only screen and (max-width: 992px) {
+  .navbar-brand {
+    #brand-logo {
+      display: inline-block;
+    }
+    #brand-name {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .navbar-brand {
+    #brand-logo {
+      display: none;
+    }
+    #brand-name {
+      display: block;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .animate {
+    animation-duration: 0.3s;
+    -webkit-animation-duration: 0.3s;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes slideIn {
+  0% {
+    -webkit-transform: transform;
+    -webkit-opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    -webkit-opacity: 1;
+  }
+  0% {
+    -webkit-transform: translateY(1rem);
+    -webkit-opacity: 0;
+  }
+}
+
+.slideIn {
+  -webkit-animation-name: slideIn;
+  animation-name: slideIn;
+}
+
+footer {
+  background-color: $nav-bg;
+  color: $text_color_secondary;
+  text-align: center;
+  width: 100%;
+  font-family: $normal_text_font;
+  a {
+    text-decoration: none;
+    color: #f8f9fa;
+    &:hover {
+      //color: #fff;
+      color: $alt_highlight_color;
+      text-decoration: none;
+    }
+  }
+  ul {
+    list-style: none;
+    li {
+      margin-bottom: 1rem;
+    }
+  }
+}

@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# FUNSIGNS
+
+The frontend for Funsigns, a fun way to do your assignments!
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
