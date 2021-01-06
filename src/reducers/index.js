@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
+import authReducer from './authReducer'
+import assignmentsReducer from './assignmentsReducer'
 
 export default combineReducers({
-  temp: () => {
-    return 1
-  },
+  auth: authReducer,
+  assignments: assignmentsReducer,
 })

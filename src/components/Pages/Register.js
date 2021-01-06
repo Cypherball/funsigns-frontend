@@ -62,7 +62,7 @@ class Register extends Component {
   render() {
     return (
       <section>
-        <Container className='d-flex flex-column justify-content-center align-items-center'>
+        <Container className='d-flex flex-column justify-content-center align-items-center my-5'>
           <h1>Register</h1>
           <FinalForm
             onSubmit={this.onSubmit}
@@ -77,6 +77,7 @@ class Register extends Component {
                         {...input}
                         type='text'
                         placeholder='Full Name'
+                        className='custom-input'
                       />
                       <Form.Text className='small text-danger'>
                         {meta.error && meta.touched && (
@@ -94,6 +95,7 @@ class Register extends Component {
                         {...input}
                         type='email'
                         placeholder='Email'
+                        className='custom-input'
                       />
                       <Form.Text className='small text-danger'>
                         {meta.error && meta.touched && (
@@ -111,6 +113,7 @@ class Register extends Component {
                         {...input}
                         type='text'
                         placeholder='Username'
+                        className='custom-input'
                       />
                       <Form.Text className='small text-danger'>
                         {meta.error && meta.touched && (
@@ -128,6 +131,7 @@ class Register extends Component {
                         {...input}
                         type='password'
                         placeholder='Password'
+                        className='custom-input'
                       />
                       <Form.Text className='small text-danger'>
                         {meta.error && meta.touched && (
@@ -145,6 +149,7 @@ class Register extends Component {
                         {...input}
                         type='password'
                         placeholder='Confirm Password'
+                        className='custom-input'
                       />
                       <Form.Text className='small text-danger'>
                         {meta.error && meta.touched && (
@@ -162,7 +167,11 @@ class Register extends Component {
                   {({ input, meta }) => (
                     <Form.Group controlId='formGridState'>
                       <Form.Label>I am a:</Form.Label>
-                      <Form.Control as='select' {...input}>
+                      <Form.Control
+                        as='select'
+                        {...input}
+                        className='custom-input'
+                      >
                         <option disabled>Choose...</option>
                         <option>Faculty</option>
                         <option>Student</option>

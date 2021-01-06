@@ -5,13 +5,15 @@ import { PongSpinner } from 'react-spinners-kit'
 
 import Navigation from './Navigation'
 import Footer from './Footer'
-import Component404 from './404'
+import Component404 from './Pages/404'
 
-const Home = lazy(() => import('./Home'))
-const About = lazy(() => import('./About'))
-const Contact = lazy(() => import('./Contact'))
-const Login = lazy(() => import('./Login'))
-const Register = lazy(() => import('./Register'))
+const Home = lazy(() => import('./Pages/Home'))
+const About = lazy(() => import('./Pages/About'))
+const Contact = lazy(() => import('./Pages/Contact'))
+const Login = lazy(() => import('./Pages/Login'))
+const Register = lazy(() => import('./Pages/Register'))
+const StudentDash = lazy(() => import('./Pages/Dashboard/StudentDash'))
+const FacultyDash = lazy(() => import('./Pages/Dashboard/FacultyDash'))
 
 class App extends Component {
   constructor(props) {
@@ -43,6 +45,16 @@ class App extends Component {
                 <Route path='/contact-us' exact component={Contact} />
                 <Route path='/login' exact component={Login} />
                 <Route path='/register' exact component={Register} />
+                <Route
+                  path='/student/dashboard'
+                  exact
+                  component={StudentDash}
+                />
+                <Route
+                  path='/faculty/dashboard'
+                  exact
+                  component={FacultyDash}
+                />
                 <Route component={Component404} />
               </Switch>
             </Suspense>

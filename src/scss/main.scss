@@ -126,30 +126,37 @@ nav {
   transition: height 0.5s ease-in-out;
 }
 
-// @media only screen and (max-width: 992px) {
-//   .navbar-brand {
-//     #brand-logo {
-//       display: inline-block;
-//     }
-//     #brand-name {
-//       display: none;
-//     }
-//   }
-// }
-
-// @media only screen and (min-width: 992px) {
-//   .navbar-brand {
-//     #brand-logo {
-//       display: none;
-//     }
-//     #brand-name {
-//       display: block;
-//     }
-//   }
-// }
-
 form {
   max-width: 450px;
+}
+
+textarea {
+  min-height: 150px;
+  max-height: 300px;
+}
+
+.custom-input {
+  background-color: $form-bg;
+  color: $form-color;
+  &::placeholder {
+    color: $placeholder-color;
+  }
+  &:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: $placeholder-color;
+  }
+  &::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: $placeholder-color;
+  }
+  &:focus {
+    background-color: $form-focus-bg;
+    color: $form-color;
+  }
+  &:disabled {
+    background-color: $form-disabled-bg;
+    color: $placeholder-color;
+  }
 }
 
 @media (min-width: 992px) {

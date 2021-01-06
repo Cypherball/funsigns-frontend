@@ -36,7 +36,7 @@ class Login extends Component {
   render() {
     return (
       <section>
-        <Container className='d-flex flex-column justify-content-center align-items-center'>
+        <Container className='d-flex flex-column justify-content-center align-items-center my-5'>
           <h1>Login</h1>
           <FinalForm
             onSubmit={this.onSubmit}
@@ -51,6 +51,7 @@ class Login extends Component {
                         {...input}
                         type='text'
                         placeholder='Username'
+                        className='custom-input'
                       />
                       <Form.Text className='small text-danger'>
                         {meta.error && meta.touched && (
@@ -68,6 +69,7 @@ class Login extends Component {
                         {...input}
                         type='password'
                         placeholder='Password'
+                        className='custom-input'
                       />
                       <Form.Text className='small text-danger'>
                         {meta.error && meta.touched && (
@@ -89,6 +91,9 @@ class Login extends Component {
                 <p className='mt-4 text-center text-secondary'>
                   Don't have an account? <Link to='/register'>Click here</Link>{' '}
                   to Register.
+                </p>
+                <p className='text-center text-secondary'>
+                  <Link to='#'>Forgot Password?</Link>
                 </p>
               </Form>
             )}

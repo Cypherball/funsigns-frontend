@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Container, Image } from 'react-bootstrap'
-import '../scss/home.scss'
-import logo from '../images/logo.png'
+import '../../scss/home.scss'
+import logo from '../../images/logo.png'
 import { Link } from 'react-router-dom'
 
 class Home extends Component {
