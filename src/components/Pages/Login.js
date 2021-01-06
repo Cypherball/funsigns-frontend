@@ -1,21 +1,50 @@
 import React, { Component } from 'react'
-import { Button, Container, Form } from 'react-bootstrap'
+import { Button, Container, Form, Alert } from 'react-bootstrap'
 import { Form as FinalForm, Field } from 'react-final-form'
 import { Link } from 'react-router-dom'
 import validator from 'validator'
+import { connect } from 'react-redux'
+import { login } from '../../actions'
+import axios from 'axios'
 
 class Login extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      showServerMessage: false,
+      serverMessage: null,
+      serverMessageVariant: null,
+      disableButton: false,
+    }
   }
 
-  sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-
-  // Placeholder submission
-  onSubmit = async (values) => {
-    await this.sleep(300)
-    window.alert(JSON.stringify(values, 0, 2))
+  onSubmit = async ({ username, password }) => {
+    this.setState({ disableButton: true })
+    try {
+      const response = await axios.post(
+        'https://funsigns.herokuapp.com/auth/local',
+        { identifier: username, password }
+      )
+      console.log(response.data)
+      this.props.login(response.data.jwt)
+      this.setState({
+        serverMessage: 'Login Successful!',
+        serverMessageVariant: 'success',
+        showServerMessage: true,
+      })
+      if (response.data.user.type === 'student') {
+        this.props.history.push('/student/dashboard')
+      } else if (response.data.user.type === 'faculty') {
+        this.props.history.push('/faculty/dashboard')
+      }
+    } catch (err) {
+      console.log(err)
+      this.setState({
+        serverMessage: 'Failed to login.',
+        serverMessageVariant: 'danger',
+        showServerMessage: true,
+      })
+    }
   }
 
   validate = (values) => {
@@ -43,6 +72,7 @@ class Login extends Component {
             validate={this.validate}
             render={({ handleSubmit, form, submitting, pristine, values }) => (
               <Form onSubmit={handleSubmit} id='login-form' className='w-100'>
+                {this.renderServerMessage()}
                 <Field name='username'>
                   {({ input, meta }) => (
                     <Form.Group>
@@ -102,6 +132,24 @@ class Login extends Component {
       </section>
     )
   }
+
+  renderServerMessage = () => {
+    if (this.state.serverMessage && this.state.showServerMessage) {
+      return (
+        <Alert
+          variant={this.state.serverMessageVariant}
+          dismissible
+          onClose={() => this.setState({ showServerMessage: false })}
+        >
+          {this.state.serverMessage}
+        </Alert>
+      )
+    }
+  }
 }
 
-export default Login
+const mapStateToProps = (state) => {
+  return { auth: state.auth }
+}
+
+export default connect(mapStateToProps, { login })(Login)

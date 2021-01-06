@@ -1,22 +1,71 @@
 import React, { Component } from 'react'
-import { Button, Container, Form } from 'react-bootstrap'
+import { Button, Container, Form, Alert } from 'react-bootstrap'
 import { Form as FinalForm, Field } from 'react-final-form'
 import { Link } from 'react-router-dom'
 import validator from 'validator'
 import _ from 'lodash'
+import axios from 'axios'
+import { connect } from 'react-redux'
+import { login } from '../../actions'
 
 class Register extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      showServerMessage: false,
+      serverMessage: null,
+      serverMessageVariant: null,
+      disableButton: false,
+    }
   }
 
-  sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-
   // Placeholder submission
-  onSubmit = async (values) => {
-    await this.sleep(300)
-    window.alert(JSON.stringify(values, 0, 2))
+  onSubmit = async (formValues) => {
+    formValues.type = formValues.type.toLowerCase()
+    let response = null
+    try {
+      this.setState({ disableButton: true })
+      response = await axios.post(
+        'https://funsigns.herokuapp.com/auth/local/register',
+        formValues
+      )
+      console.log(response.data)
+      this.props.login(response.data.jwt)
+      this.setState({
+        serverMessage: 'User has been created successfully',
+        serverMessageVariant: 'success',
+        showServerMessage: true,
+      })
+    } catch (err) {
+      console.log(err)
+      this.setState({
+        serverMessage: 'Failed to create user. Try Again.',
+        serverMessageVariant: 'danger',
+        showServerMessage: true,
+      })
+      return
+    }
+
+    // Create student or faculty
+    let typeResponse = null
+    try {
+      if (response.data.user.type === 'student') {
+        typeResponse = await axios.post(
+          'https://funsigns.herokuapp.com/students',
+          { userId: response.data.user.id }
+        )
+        this.props.history.push('/student/dashboard')
+      } else if (response.data.user.type === 'faculty') {
+        typeResponse = await axios.post(
+          'https://funsigns.herokuapp.com/faculties',
+          { userId: response.data.user.id }
+        )
+        this.props.history.push('/faculty/dashboard')
+      }
+      console.log(typeResponse.data)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   validate = (values) => {
@@ -51,12 +100,26 @@ class Register extends Component {
       errors.confirmPassword = 'Passwords do not match'
     }
 
-    if (!values.userType || values.userType === 'Choose...') {
-      errors.userType = 'Required'
-    } else if (_.indexOf(['Faculty', 'Student'], values.userType) === -1) {
-      errors.userType = 'Invalid Value Selected'
+    if (!values.type || values.type === 'Choose...') {
+      errors.type = 'Required'
+    } else if (_.indexOf(['Faculty', 'Student'], values.type) === -1) {
+      errors.type = 'Invalid Value Selected'
     }
     return errors
+  }
+
+  renderServerMessage = () => {
+    if (this.state.serverMessage && this.state.showServerMessage) {
+      return (
+        <Alert
+          variant={this.state.serverMessageVariant}
+          dismissible
+          onClose={() => this.setState({ showServerMessage: false })}
+        >
+          {this.state.serverMessage}
+        </Alert>
+      )
+    }
   }
 
   render() {
@@ -69,6 +132,7 @@ class Register extends Component {
             validate={this.validate}
             render={({ handleSubmit, form, submitting, pristine, values }) => (
               <Form onSubmit={handleSubmit} id='login-form' className='w-100'>
+                {this.renderServerMessage()}
                 <Field name='fullName'>
                   {({ input, meta }) => (
                     <Form.Group>
@@ -159,11 +223,7 @@ class Register extends Component {
                     </Form.Group>
                   )}
                 </Field>
-                <Field
-                  name='userType'
-                  component='select'
-                  defaultValue='Choose...'
-                >
+                <Field name='type' component='select' defaultValue='Choose...'>
                   {({ input, meta }) => (
                     <Form.Group controlId='formGridState'>
                       <Form.Label>I am a:</Form.Label>
@@ -206,4 +266,8 @@ class Register extends Component {
   }
 }
 
-export default Register
+const mapStateToProps = (state) => {
+  return { auth: state.auth }
+}
+
+export default connect(mapStateToProps, { login })(Register)

@@ -35,7 +35,6 @@ class StudentDash extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(Object.values(state.assignments))
   return { assignments: Object.values(state.assignments) }
 }
 
