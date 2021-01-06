@@ -7,6 +7,8 @@ import {
   EDIT_ASSIGNMENT,
   GET_ASSIGNMENT,
   GET_ASSIGNMENTS,
+  GET_COURSES,
+  GET_LOGGED_IN_USER,
 } from './types'
 
 import axios from 'axios'
@@ -25,6 +27,26 @@ export const logout = () => {
 }
 
 // Assignments ---------------------------------------------------------------
+
+export const getAssignments = () => async (dispatch, getState) => {
+  const { jwtToken } = getState().auth
+  console.log(jwtToken)
+  try {
+    const response = await axios.get(
+      'https://funsigns.herokuapp.com/assignments',
+      {
+        headers: { Authorization: 'Bearer ' + jwtToken },
+      }
+    )
+    dispatch({
+      type: GET_ASSIGNMENTS,
+      payload: response.data,
+    })
+  } catch (err) {
+    console.log(err)
+    return null
+  }
+}
 
 export const createAssignment = (formValues) => async (dispatch, getState) => {
   const { jwtToken } = getState().auth
@@ -51,25 +73,6 @@ export const getAssignment = (id) => async (dispatch, getState) => {
     type: GET_ASSIGNMENT,
     payload: response.data,
   })
-}
-
-export const getAssignments = () => async (dispatch, getState) => {
-  const { jwtToken } = getState().auth
-  console.log(jwtToken)
-  try {
-    const response = await axios.get(
-      'https://funsigns.herokuapp.com/assignments',
-      {
-        headers: { Authorization: 'Bearer ' + jwtToken },
-      }
-    )
-    dispatch({
-      type: GET_ASSIGNMENTS,
-      payload: response.data,
-    })
-  } catch {
-    return null
-  }
 }
 
 export const editAssignment = (id, formValues) => async (
@@ -99,4 +102,45 @@ export const deleteAssignment = (id) => async (dispatch, getState) => {
     type: DELETE_ASSIGNMENT,
     payload: id,
   })
+}
+
+// Courses ---------------------------------------------------------------
+
+export const getCourses = () => async (dispatch, getState) => {
+  const { jwtToken } = getState().auth
+  console.log(jwtToken)
+  try {
+    const response = await axios.get('https://funsigns.herokuapp.com/courses', {
+      headers: { Authorization: 'Bearer ' + jwtToken },
+    })
+    dispatch({
+      type: GET_COURSES,
+      payload: response.data,
+    })
+  } catch (err) {
+    console.log(err)
+    return null
+  }
+}
+
+// Users ---------------------------------------------------------------
+
+export const getLoggedInUser = () => async (dispatch, getState) => {
+  const { jwtToken } = getState().auth
+  console.log(jwtToken)
+  try {
+    const response = await axios.get(
+      'https://funsigns.herokuapp.com/users/me',
+      {
+        headers: { Authorization: 'Bearer ' + jwtToken },
+      }
+    )
+    dispatch({
+      type: GET_LOGGED_IN_USER,
+      payload: response.data,
+    })
+  } catch (err) {
+    console.log(err)
+    return null
+  }
 }

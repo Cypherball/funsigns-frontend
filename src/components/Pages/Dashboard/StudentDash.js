@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { Container } from 'react-bootstrap'
+import { Container, Tab, Row, Col, Nav } from 'react-bootstrap'
 import '../../../scss/studentDash.scss'
 import { connect } from 'react-redux'
 import {
-  createAssignment,
   getAssignment,
   getAssignments,
+  getCourses,
+  getLoggedInUser,
 } from '../../../actions'
 
-import { Tab, Row, Col, Nav } from 'react-bootstrap'
 import Badge from '../../Badge'
 import AssignmentCard from '../../AssignmentCard'
 
@@ -19,7 +19,12 @@ class StudentDash extends Component {
   }
 
   componentDidMount() {
-    this.props.getAssignments()
+    this.props.getLoggedInUser()
+    this.props.getCourses()
+  }
+
+  componentDidUpdate() {
+    console.log(this.props.courses)
   }
 
   renderAssignment = () =>
@@ -27,52 +32,75 @@ class StudentDash extends Component {
       return <p>{assig.id}</p>
     })
 
+  renderCourseNavItem = () =>
+    this.props.courses.map((course, index) => {
+      return (
+        <Nav.Item>
+          <Nav.Link eventKey={index}>{course.name}</Nav.Link>
+        </Nav.Item>
+      )
+    })
+
+  renderCoursePane = () =>
+    this.props.courses.map((course, index) => {
+      return (
+        <Tab.Pane eventKey={index}>
+          <div className='assignment-card-container'>
+            {this.renderAssignmentCard(course.assignments)}
+          </div>
+        </Tab.Pane>
+      )
+    })
+
+  renderAssignmentCard = (assignments) =>
+    assignments.map((assignment, index) => {
+      return (
+        <AssignmentCard name={assignment.name} desc={assignment.description} />
+      )
+    })
+
   render() {
     return (
       <Container>
-        <section id="studentDash">
+        <section id='studentDash'>
           <h1>Student Dashboard</h1>
-          <div className="dash-greeting">Welcome <b>{'username'}</b>.</div>
-          <div className="dash-section">
-            <div className="dash-subtitle">Assignments</div>
-            <div className="dash-assignments-container">
-              <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+          <div className='dash-greeting'>
+            Welcome <b>{this.props.user.username}</b>.
+          </div>
+          <div className='dash-section'>
+            <div className='dash-subtitle'>Assignments</div>
+            <div className='dash-assignments-container'>
+              <Tab.Container id='left-tabs-example' defaultActiveKey={0}>
                 <Row>
                   <Col sm={3}>
-                    <Nav variant="pills" className="flex-column">
-                      <Nav.Item>
-                        <Nav.Link eventKey="first">Machine Learning</Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link eventKey="second">Blockchain</Nav.Link>
-                      </Nav.Item>
+                    <Nav variant='pills' className='flex-column'>
+                      {this.renderCourseNavItem()}
                     </Nav>
                   </Col>
                   <Col sm={9}>
-                    <Tab.Content>
-                      <Tab.Pane eventKey="first">
-                        <div className="assignment-card-container">
-                          <AssignmentCard name="Assign 1" />
-                          <AssignmentCard name="Assign 2" />
-                          <AssignmentCard name="Assign 3" />
-                        </div>
-                      </Tab.Pane>
-                      <Tab.Pane eventKey="second">
-                        <div className="assignment-card-container">
-                          <AssignmentCard name="Assign 1" />
-                        </div>
-                      </Tab.Pane>
-                    </Tab.Content>
+                    <Tab.Content>{this.renderCoursePane()}</Tab.Content>
                   </Col>
                 </Row>
               </Tab.Container>
             </div>
 
-            <div className="dash-subtitle">Badges</div>
-            <div className="dash-badge-container">
-              <Badge name="Badge 1" description="This is a nice description" icon="https://pawankolhe.com/img/pawankolhe.jpg" />
-              <Badge name="Badge 1" description="This is a description" icon="https://pawankolhe.com/img/pawankolhe.jpg" />
-              <Badge name="Badge 1" description="This is a awesome description" icon="https://pawankolhe.com/img/pawankolhe.jpg" />
+            <div className='dash-subtitle'>Badges</div>
+            <div className='dash-badge-container'>
+              <Badge
+                name='Badge 1'
+                description='This is a nice description'
+                icon='https://pawankolhe.com/img/pawankolhe.jpg'
+              />
+              <Badge
+                name='Badge 1'
+                description='This is a description'
+                icon='https://pawankolhe.com/img/pawankolhe.jpg'
+              />
+              <Badge
+                name='Badge 1'
+                description='This is a awesome description'
+                icon='https://pawankolhe.com/img/pawankolhe.jpg'
+              />
             </div>
           </div>
         </section>
@@ -82,7 +110,17 @@ class StudentDash extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { assignments: Object.values(state.assignments) }
+  return {
+    courses: Object.values(state.courses),
+    assignments: Object.values(state.assignments),
+    auth: state.auth,
+    user: state.user,
+  }
 }
 
-export default connect(mapStateToProps, { getAssignments })(StudentDash)
+export default connect(mapStateToProps, {
+  getAssignment,
+  getAssignments,
+  getCourses,
+  getLoggedInUser,
+})(StudentDash)
