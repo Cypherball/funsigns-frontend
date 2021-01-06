@@ -11,19 +11,23 @@ class StudentDash extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+  }
 
+  componentDidMount() {
     this.props.getAssignments()
   }
 
-  componentDidUpdate() {
-    console.log(this.props.assignments)
-  }
+  renderAssignment = () =>
+    this.props.assignments.map((assig) => {
+      return <p>{assig.id}</p>
+    })
 
   render() {
     return (
       <Container>
         <section>
           <h1>Student Dashboard</h1>
+          {this.renderAssignment()}
         </section>
       </Container>
     )
@@ -31,6 +35,7 @@ class StudentDash extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(Object.values(state.assignments))
   return { assignments: Object.values(state.assignments) }
 }
 
