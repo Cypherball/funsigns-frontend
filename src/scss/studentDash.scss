@@ -1,0 +1,71 @@
+#studentDash {
+  display: block;
+  padding: 60px 0;
+}
+
+.dash-greeting {
+
+}
+
+.dash-subtitle {
+  font-weight: 600;
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+/* BADGE */
+.dash-badge-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dash-badge {
+  flex: 0 0 180px;
+  // border: 1px solid rgba(255, 255, 0, 0.5);
+  text-align: center;
+  min-width: 150px;
+  border-radius: 0.5rem;
+  padding: 10px;
+}
+
+.dash-badge__icon {
+  width: 130px;
+  height: 130px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.dash-badge__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dash-badge__name {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.dash-badge__desc {
+  line-height: 26px;
+  font-size: 0.85rem;
+}
+
+/* ASSIGNMENT CARD */
+.assignment-card-container {
+}
+
+.dash-assignment {
+  background-color: rgba(0, 102, 255, 0.623);
+  border-radius: 0.5rem;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.dash-assignment__name {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
