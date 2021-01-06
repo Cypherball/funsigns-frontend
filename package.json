@@ -24,6 +24,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "sass": "^1.32.0",
+    "validator": "^13.5.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

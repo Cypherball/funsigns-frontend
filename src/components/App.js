@@ -32,7 +32,7 @@ class App extends Component {
                     <div className='d-flex justify-content-center'>
                       <PongSpinner size={200} color='#44318d' loading />
                     </div>
-                    <h1 className='display-3 text-center mb-5'>LOADING</h1>
+                    <h1 className='display-3 text-center mt-4'>LOADING</h1>
                   </Container>
                 </section>
               }
