@@ -3,6 +3,7 @@ import { Button, Container, Form } from 'react-bootstrap'
 import { Form as FinalForm, Field } from 'react-final-form'
 import { Link } from 'react-router-dom'
 import validator from 'validator'
+import _ from 'lodash'
 
 class Register extends Component {
   constructor(props) {
@@ -48,6 +49,12 @@ class Register extends Component {
       errors.confirmPassword = 'Required'
     } else if (values.confirmPassword.trim() !== values.password.trim()) {
       errors.confirmPassword = 'Passwords do not match'
+    }
+
+    if (!values.userType || values.userType === 'Choose...') {
+      errors.userType = 'Required'
+    } else if (_.indexOf(['Faculty', 'Student'], values.userType) === -1) {
+      errors.userType = 'Invalid Value Selected'
     }
     return errors
   }
@@ -139,6 +146,27 @@ class Register extends Component {
                         type='password'
                         placeholder='Confirm Password'
                       />
+                      <Form.Text className='small text-danger'>
+                        {meta.error && meta.touched && (
+                          <span>{meta.error}</span>
+                        )}
+                      </Form.Text>
+                    </Form.Group>
+                  )}
+                </Field>
+                <Field
+                  name='userType'
+                  component='select'
+                  defaultValue='Choose...'
+                >
+                  {({ input, meta }) => (
+                    <Form.Group controlId='formGridState'>
+                      <Form.Label>I am a:</Form.Label>
+                      <Form.Control as='select' {...input}>
+                        <option disabled>Choose...</option>
+                        <option>Faculty</option>
+                        <option>Student</option>
+                      </Form.Control>
                       <Form.Text className='small text-danger'>
                         {meta.error && meta.touched && (
                           <span>{meta.error}</span>
