@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import { Container, Tab, Row, Col, Nav } from 'react-bootstrap'
 import '../../../scss/studentDash.scss'
 import { connect } from 'react-redux'
@@ -21,6 +22,7 @@ class StudentDash extends Component {
   componentDidMount() {
     this.props.getLoggedInUser()
     this.props.getCourses()
+    // this.plagCheck('As of 2009, there were three wireless chip technologies commonly used in mice —27 MHz, 2.4 GHz, and Bluetooth.');
   }
 
   componentDidUpdate() {
