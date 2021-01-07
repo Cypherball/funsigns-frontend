@@ -1,6 +1,7 @@
 import React, { Component, lazy, Suspense } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
+import { connect } from 'react-redux'
 import { PongSpinner } from 'react-spinners-kit'
 
 import Navigation from './Navigation'
@@ -66,4 +67,8 @@ class App extends Component {
   }
 }
 
-export default App
+const mapStateToProps = (state) => {
+  return { auth: state.auth }
+}
+
+export default connect(mapStateToProps, {})(App)

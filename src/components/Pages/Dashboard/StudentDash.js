@@ -16,16 +16,16 @@ class StudentDash extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-  }
-
-  componentDidMount() {
+    if (!this.props.auth.isLoggedIn) {
+      this.props.history.push('/login')
+    }
     this.props.getLoggedInUser()
     this.props.getCourses()
   }
 
-  componentDidUpdate() {
-    console.log(this.props.courses)
-  }
+  componentDidMount() {}
+
+  componentDidUpdate() {}
 
   renderAssignment = () =>
     this.props.assignments.map((assig) => {
@@ -114,7 +114,7 @@ const mapStateToProps = (state) => {
     courses: Object.values(state.courses),
     assignments: Object.values(state.assignments),
     auth: state.auth,
-    user: state.user,
+    user: state.currentUser,
   }
 }
 

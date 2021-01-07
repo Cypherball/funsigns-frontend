@@ -1,7 +1,6 @@
 import {
   LOGIN,
   LOGOUT,
-  CREATE_USER,
   CREATE_ASSIGNMENT,
   DELETE_ASSIGNMENT,
   EDIT_ASSIGNMENT,
@@ -30,7 +29,6 @@ export const logout = () => {
 
 export const getAssignments = () => async (dispatch, getState) => {
   const { jwtToken } = getState().auth
-  console.log(jwtToken)
   try {
     const response = await axios.get(
       'https://funsigns.herokuapp.com/assignments',
@@ -108,7 +106,6 @@ export const deleteAssignment = (id) => async (dispatch, getState) => {
 
 export const getCourses = () => async (dispatch, getState) => {
   const { jwtToken } = getState().auth
-  console.log(jwtToken)
   try {
     const response = await axios.get('https://funsigns.herokuapp.com/courses', {
       headers: { Authorization: 'Bearer ' + jwtToken },
@@ -127,7 +124,6 @@ export const getCourses = () => async (dispatch, getState) => {
 
 export const getLoggedInUser = () => async (dispatch, getState) => {
   const { jwtToken } = getState().auth
-  console.log(jwtToken)
   try {
     const response = await axios.get(
       'https://funsigns.herokuapp.com/users/me',

@@ -8,5 +8,5 @@ export default combineReducers({
   auth: authReducer,
   assignments: assignmentsReducer,
   courses: coursesReducer,
-  user: usersReducer,
+  currentUser: usersReducer,
 })
