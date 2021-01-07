@@ -232,3 +232,21 @@ footer {
     }
   }
 }
+
+.modal-title {
+  color: $primary;
+}
+
+.modal-body {
+  color: $gray-900;
+}
+
+.modal-body p {
+  margin-bottom: 0;
+}
+
+.form-label {
+  color: $purple;
+  font-weight: 600;
+  margin-top: 10px;
+}
