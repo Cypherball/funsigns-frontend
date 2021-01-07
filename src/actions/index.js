@@ -9,15 +9,17 @@ import {
   GET_COURSES,
   CREATE_COURSE,
   EDIT_COURSE,
+  GET_STUDENTS,
+  GET_STUDENT,
   GET_LOGGED_IN_USER,
 } from './types'
 
 import axios from 'axios'
 
-export const login = (jwtToken) => {
+export const login = (jwtToken, userType) => {
   return {
     type: LOGIN,
-    payload: jwtToken,
+    payload: { jwtToken, userType },
   }
 }
 
@@ -170,6 +172,27 @@ export const getLoggedInUser = () => async (dispatch, getState) => {
     )
     dispatch({
       type: GET_LOGGED_IN_USER,
+      payload: response.data,
+    })
+  } catch (err) {
+    console.log(err)
+    return null
+  }
+}
+
+// Students ---------------------------------------------------------------
+
+export const getStudents = () => async (dispatch, getState) => {
+  const { jwtToken } = getState().auth
+  try {
+    const response = await axios.get(
+      'https://funsigns.herokuapp.com/students',
+      {
+        headers: { Authorization: 'Bearer ' + jwtToken },
+      }
+    )
+    dispatch({
+      type: GET_STUDENTS,
       payload: response.data,
     })
   } catch (err) {

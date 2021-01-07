@@ -15,8 +15,8 @@ import badge3 from '../../../images/badges/3.png'
 import Badge from '../../Badge'
 import AssignmentCard from '../../AssignmentCard'
 
-import "react-step-progress-bar/styles.css";
-import { ProgressBar, Step } from "react-step-progress-bar";
+import 'react-step-progress-bar/styles.css'
+import { ProgressBar, Step } from 'react-step-progress-bar'
 
 class StudentDash extends Component {
   constructor(props) {
@@ -29,6 +29,9 @@ class StudentDash extends Component {
     }
     if (!this.props.auth.isLoggedIn) {
       this.props.history.push('/login')
+    }
+    if (this.props.auth.userType !== 'student') {
+      this.props.history.push('/')
     }
     this.props.getLoggedInUser()
     this.props.getCourses()
@@ -62,29 +65,36 @@ class StudentDash extends Component {
   renderAssignmentCard = (assignments) =>
     assignments.map((assignment, index) => {
       return (
-        <AssignmentCard name={assignment.name} desc={assignment.description} plagBadge={this.state.showBadge3} progress={this.state.progress} updateBadge={this.updateBadge} updateProgress={this.updateProgress} />
+        <AssignmentCard
+          name={assignment.name}
+          desc={assignment.description}
+          plagBadge={this.state.showBadge3}
+          progress={this.state.progress}
+          updateBadge={this.updateBadge}
+          updateProgress={this.updateProgress}
+        />
       )
     })
 
   updateBadge = (name) => {
-    console.log('UPDATE BADGE', name);
+    console.log('UPDATE BADGE', name)
     switch (name) {
       case 'badge1':
         this.setState({ showBadge1: true })
-        break;
+        break
       case 'badge2':
         this.setState({ showBadge2: true })
-        break;
+        break
       case 'badge3':
         this.setState({ showBadge3: true })
-        break;
+        break
       default:
-        break;
+        break
     }
   }
 
   updateProgress = () => {
-    this.setState({ progress: this.state.progress + 10 });
+    this.setState({ progress: this.state.progress + 10 })
   }
 
   render() {
@@ -100,68 +110,82 @@ class StudentDash extends Component {
             <div className='dash-subtitle'>Monthly Goal</div>
             <ProgressBar
               percent={this.state.progress}
-              filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
+              filledBackground='linear-gradient(to right, #fefb72, #f0bb31)'
             >
-              <Step transition="scale">
+              <Step transition='scale'>
                 {({ accomplished, index }) => (
                   <div
-                    className={`transitionStep ${accomplished ? "accomplished" : null}`}
+                    className={`transitionStep ${
+                      accomplished ? 'accomplished' : null
+                    }`}
                   >
                     0️⃣
                   </div>
                 )}
               </Step>
-              <Step transition="scale">
+              <Step transition='scale'>
                 {({ accomplished, index }) => (
                   <div
-                    className={`transitionStep ${accomplished ? "accomplished" : null}`}
+                    className={`transitionStep ${
+                      accomplished ? 'accomplished' : null
+                    }`}
                   >
                     2️⃣
                   </div>
                 )}
               </Step>
-              <Step transition="scale">
+              <Step transition='scale'>
                 {({ accomplished, index }) => (
                   <div
-                    className={`transitionStep ${accomplished ? "accomplished" : null}`}
+                    className={`transitionStep ${
+                      accomplished ? 'accomplished' : null
+                    }`}
                   >
                     4️⃣
                   </div>
                 )}
               </Step>
-              <Step transition="scale">
+              <Step transition='scale'>
                 {({ accomplished, index }) => (
                   <div
-                    className={`transitionStep ${accomplished ? "accomplished" : null}`}
+                    className={`transitionStep ${
+                      accomplished ? 'accomplished' : null
+                    }`}
                   >
                     6️⃣
                   </div>
                 )}
               </Step>
-              <Step transition="scale">
+              <Step transition='scale'>
                 {({ accomplished, index }) => (
                   <div
-                    className={`transitionStep ${accomplished ? "accomplished" : null}`}
+                    className={`transitionStep ${
+                      accomplished ? 'accomplished' : null
+                    }`}
                   >
                     8️⃣
                   </div>
                 )}
               </Step>
-              <Step transition="scale">
+              <Step transition='scale'>
                 {({ accomplished, index }) => (
                   <div
-                    className={`transitionStep ${accomplished ? "accomplished" : null}`}
+                    className={`transitionStep ${
+                      accomplished ? 'accomplished' : null
+                    }`}
                   >
                     🔟
                   </div>
                 )}
               </Step>
             </ProgressBar>
-            <div className="total-completed-assigns">Total assignments completed: {this.state.progress / 10}</div>
+            <div className='total-completed-assigns'>
+              Total funsignments completed: {this.state.progress / 10}
+            </div>
           </div>
 
           <div className='dash-section'>
-            <div className='dash-subtitle'>Assignments</div>
+            <div className='dash-subtitle'>Funsignments</div>
             <div className='dash-assignments-container'>
               <Tab.Container id='left-tabs-example' defaultActiveKey={0}>
                 <Row>
@@ -179,21 +203,33 @@ class StudentDash extends Component {
 
             <div className='dash-subtitle'>Badges</div>
             <div className='dash-badge-container'>
-              {this.state.showBadge3 ? <Badge
-                name='No Plagiarism'
-                description='Submitted an assignment with no plagiarism'
-                icon={badge3}
-              /> : ''}
-              {(this.state.progress / 10) >= 6  ? <Badge
-                name="That's a Six"
-                description='Submitted 6 assignments in total'
-                icon={badge2}
-              /> : ''}
-              {this.state.showBadge1 ? <Badge
-                name='1st Assignment'
-                description='Submitted their first assignment'
-                icon={badge1}
-              /> : ''}
+              {this.state.showBadge3 ? (
+                <Badge
+                  name='No Plagiarism'
+                  description='Submitted an assignment with no plagiarism'
+                  icon={badge3}
+                />
+              ) : (
+                ''
+              )}
+              {this.state.progress / 10 >= 6 ? (
+                <Badge
+                  name="That's a Six"
+                  description='Submitted 6 assignments in total'
+                  icon={badge2}
+                />
+              ) : (
+                ''
+              )}
+              {this.state.showBadge1 ? (
+                <Badge
+                  name='1st Assignment'
+                  description='Submitted their first assignment'
+                  icon={badge1}
+                />
+              ) : (
+                ''
+              )}
             </div>
           </div>
         </section>

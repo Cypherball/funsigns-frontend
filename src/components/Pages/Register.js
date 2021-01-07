@@ -30,7 +30,7 @@ class Register extends Component {
         formValues
       )
       console.log(response.data)
-      this.props.login(response.data.jwt)
+      this.props.login(response.data.jwt, response.data.user.type)
       this.setState({
         serverMessage: 'User has been created successfully',
         serverMessageVariant: 'success',

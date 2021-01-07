@@ -26,7 +26,7 @@ class Login extends Component {
         { identifier: username, password }
       )
       console.log(response.data)
-      this.props.login(response.data.jwt)
+      this.props.login(response.data.jwt, response.data.user.type)
       this.setState({
         serverMessage: 'Login Successful!',
         serverMessageVariant: 'success',

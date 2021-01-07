@@ -16,6 +16,7 @@ export const EDIT_COURSE = 'EDIT_COURSE'
 export const GET_COURSE = 'GET_COURSE'
 
 export const GET_STUDENTS = 'GET_STUDENTS'
+export const GET_STUDENT = 'GET_STUDENT'
 export const EDIT_STUDENT = 'EDIT_STUDENT'
 export const DELETE_STUDENT = 'EDIT_STUDENT'
 

@@ -31,23 +31,23 @@ class Navigation extends Component {
       document.body.scrollTop = 0
       document.documentElement.scrollTop = 0
     }
-    if (this.props.user) {
-      if (
-        this.props.user.type !== 'faculty' &&
-        this.props.location.pathname === '/faculty/dashboard'
-      ) {
-        this.props.history.push('/')
-      } else if (
-        this.props.user.type !== 'student' &&
-        this.props.location.pathname === '/student/dashboard'
-      ) {
-        this.props.history.push('/')
-      }
-    }
+    // if (this.props.auth.userType) {
+    //   if (
+    //     this.props.auth.userType !== 'faculty' &&
+    //     this.props.location.pathname === '/faculty/dashboard'
+    //   ) {
+    //     this.props.history.push('/')
+    //   } else if (
+    //     this.props.auth.userType !== 'student' &&
+    //     this.props.location.pathname === '/student/dashboard'
+    //   ) {
+    //     this.props.history.push('/')
+    //   }
+    // }
   }
 
   renderDashboardLink = () => {
-    if (this.props.user.type === 'student') {
+    if (this.props.auth.userType === 'student') {
       return (
         <Link
           to='/student/dashboard'
@@ -63,7 +63,7 @@ class Navigation extends Component {
           Dashboard
         </Link>
       )
-    } else if (this.props.user.type === 'faculty') {
+    } else if (this.props.auth.userType === 'faculty') {
       return (
         <Link
           to='/faculty/dashboard'

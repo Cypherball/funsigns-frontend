@@ -3,8 +3,8 @@ import { Modal, Button, Form } from 'react-bootstrap'
 import ReactMarkdown from 'react-markdown'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function AssignModal(props) {
   const { name, description } = props.data
@@ -63,19 +63,19 @@ function AssignModal(props) {
       setUniquePercent(response.data.uniquePercent)
 
       // Badges
-      if(props.progress === 0) {
-        props.updateBadge('badge1');
-        toast.dark('🦄 Badge Unlocked: 1st Assignment');
+      if (props.progress === 0) {
+        props.updateBadge('badge1')
+        toast.dark('🦄 Badge Unlocked: 1st Assignment')
       }
-      if(props.progress === 5) {
-        props.updateBadge('badge2');
-        toast.dark("🚀 Badge Unlocked: It's a 6");
+      if (props.progress === 5) {
+        props.updateBadge('badge2')
+        toast.dark("🚀 Badge Unlocked: It's a 6")
       }
-      if(response.data.plagPercent === 0 && props.plagBadge === false) {
-        props.updateBadge('badge3');
-        toast.dark('🥁 Badge Unlocked: No Plagiarism');
+      if (response.data.plagPercent === 0 && props.plagBadge === false) {
+        props.updateBadge('badge3')
+        toast.dark('🥁 Badge Unlocked: No Plagiarism')
       }
-      props.updateProgress();
+      props.updateProgress()
 
       return response.data
     } catch (err) {
@@ -110,7 +110,7 @@ function AssignModal(props) {
           ) : (
             <Form onSubmit={submitForm}>
               <Form.Group controlId='exampleForm.ControlTextarea1'>
-                <Form.Label className=''>Submit Assignment</Form.Label>
+                <Form.Label className=''>Submit Funsignment</Form.Label>
                 <Form.Control
                   className='custom-input'
                   as='textarea'
@@ -132,16 +132,16 @@ function AssignModal(props) {
             </Form>
           )}
           {submitDisabled && plagPercent !== null ? (
-            <div className='assign-complete'>Assignment Complete!</div>
+            <div className='assign-complete'>Funsignment Complete!</div>
           ) : (
             ''
           )}
           {plagPercent !== null ? (
             <>
-              <div className="percent-red">
+              <div className='percent-red'>
                 <b>{plagPercent}%</b> plagiarized
               </div>
-              <div className="percent-green">
+              <div className='percent-green'>
                 <b>{uniquePercent}%</b> unique
               </div>
             </>
@@ -153,8 +153,8 @@ function AssignModal(props) {
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
-      <ToastContainer 
-        position="bottom-center"
+      <ToastContainer
+        position='bottom-center'
         autoClose={15000}
         hideProgressBar={false}
         newestOnTop

@@ -20,6 +20,7 @@ import {
   createAssignment,
   getCourses,
   createCourse,
+  getStudents,
   getLoggedInUser,
 } from '../../../actions'
 
@@ -35,11 +36,15 @@ class FacultyDash extends Component {
     if (!this.props.auth.isLoggedIn) {
       this.props.history.push('/login')
     }
+    if (this.props.auth.userType !== 'faculty') {
+      this.props.history.push('/')
+    }
   }
 
   componentDidMount() {
     this.props.getLoggedInUser()
     this.props.getCourses()
+    this.props.getStudents()
   }
 
   render() {
@@ -121,6 +126,7 @@ class FacultyDash extends Component {
                         >
                           <Tab eventKey='viewStudents' title='View'>
                             <h4 className='my-3'>View Student</h4>
+                            {this.renderStudents(this.props.students)}
                           </Tab>
                           <Tab eventKey='editStudent' title='Edit' disabled>
                             <h4 className='my-3'>Edit Student</h4>
@@ -141,8 +147,29 @@ class FacultyDash extends Component {
   renderCourses = (courses) =>
     courses.map((course) => {
       return (
-        <Card className='bg-secondary mb-2' key={course.id}>
+        <Card className='bg-blue mb-2' key={course.id}>
           <Card.Body>{course.name}</Card.Body>
+        </Card>
+      )
+    })
+
+  renderStudents = (students) =>
+    students.map((student) => {
+      return (
+        <Card className='bg-blue mb-2' key={student.id}>
+          <Card.Body>
+            <Card.Text>
+              <strong>Name: </strong>
+              {student.userId.fullName} <strong>Username: </strong>
+              {student.userId.username}
+              <br />
+              <strong>Email: </strong>
+              {student.userId.email}
+              <br />
+              <strong>Number of Assignments Submitted: </strong>
+              {student.assignments_completed.length}
+            </Card.Text>
+          </Card.Body>
         </Card>
       )
     })
@@ -150,13 +177,15 @@ class FacultyDash extends Component {
   renderAssignments = () =>
     this.state.selectedCourse.assignments.map((assignment) => {
       return (
-        <Card className='bg-secondary mb-2' key={assignment.id}>
+        <Card className='bg-blue mb-2' key={assignment.id}>
           <Card.Body>
-            <Card.Title>{assignment.name}</Card.Title>
-            <Card.Text className='text-dark'>
+            <Card.Text>
+              <strong>{assignment.name}</strong>
+              <br />
               {assignment.description ? `${assignment.description}` : null}
               {assignment.description ? <br /> : null}
-              Plagerism: {assignment.plagerismAllowed ? `true` : `false`}{' '}
+              <strong>Plagerism Allowed</strong>:{' '}
+              {assignment.plagerismAllowed ? `Yes` : `No`} <br />
               {assignment.plagerismAllowed
                 ? `Plagerism Amount: ${assignment.value}%`
                 : null}
@@ -215,7 +244,11 @@ class FacultyDash extends Component {
 
   renderCourseSelectOptions = (courses) =>
     courses.map((course) => {
-      return <option value={course.id}>{course.name}</option>
+      return (
+        <option value={course.id} key={course.id}>
+          {course.name}
+        </option>
+      )
     })
 
   renderAssignmentViewForm = () => {
@@ -436,6 +469,7 @@ const mapStateToProps = (state) => {
   return {
     courses: Object.values(state.courses),
     assignments: Object.values(state.assignments),
+    students: Object.values(state.students),
     auth: state.auth,
     user: state.currentUser,
   }
@@ -446,5 +480,6 @@ export default connect(mapStateToProps, {
   createAssignment,
   getCourses,
   createCourse,
+  getStudents,
   getLoggedInUser,
 })(FacultyDash)
