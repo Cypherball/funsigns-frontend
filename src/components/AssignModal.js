@@ -4,11 +4,14 @@ import ReactMarkdown from 'react-markdown'
 import { connect } from 'react-redux'
 import { getLoggedInUser } from '../actions'
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function AssignModal(props) {
   const { name, description } = props.data
   const [formText, setFormText] = useState('')
   const [plagPercent, setPlagPercent] = useState(null)
+  const [uniquePercent, setUniquePercent] = useState(null)
   const [submitDisabled, setSubmitDisabled] = useState(false)
 
   console.log('USER AssignCard', props.user)
@@ -58,6 +61,23 @@ function AssignModal(props) {
       console.log('PLAG-CHECK res', response.data)
       setSubmitDisabled(true)
       setPlagPercent(response.data.plagPercent)
+      setUniquePercent(response.data.uniquePercent)
+
+      // Badges
+      if(props.progress === 0) {
+        props.updateBadge('badge1');
+        toast.dark('🦄 Badge Unlocked: 1st Assignment');
+      }
+      if(props.progress === 5) {
+        props.updateBadge('badge2');
+        toast.dark("🚀 Badge Unlocked: It's a 6");
+      }
+      if(response.data.plagPercent === 0 && props.plagBadge === false) {
+        props.updateBadge('badge3');
+        toast.dark('🥁 Badge Unlocked: No Plagiarism');
+      }
+      props.updateProgress();
+
       return response.data
     } catch (err) {
       console.log(err)
@@ -99,6 +119,7 @@ function AssignModal(props) {
                   value={formText}
                   onChange={(e) => setFormText(e.target.value)}
                   disabled={submitDisabled}
+                  required={true}
                 />
                 <br></br>
                 <Button
@@ -117,9 +138,14 @@ function AssignModal(props) {
             ''
           )}
           {plagPercent !== null ? (
-            <div>
-              <b>{plagPercent}%</b> plagiarism found
-            </div>
+            <>
+              <div className="percent-red">
+                <b>{plagPercent}%</b> plagiarized
+              </div>
+              <div className="percent-green">
+                <b>{uniquePercent}%</b> unique
+              </div>
+            </>
           ) : (
             ''
           )}
@@ -128,6 +154,17 @@ function AssignModal(props) {
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
+      <ToastContainer 
+        position="bottom-center"
+        autoClose={15000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={false}
+      />
     </Modal>
   )
 }

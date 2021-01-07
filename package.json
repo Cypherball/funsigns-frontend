@@ -22,6 +22,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-spinners-kit": "^1.9.1",
+    "react-step-progress-bar": "^1.0.3",
+    "react-toastify": "^6.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "sass": "^1.32.0",

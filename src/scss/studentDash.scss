@@ -70,10 +70,23 @@
 }
 
 .assign-complete {
-  color: green;
+  color: rgb(49, 170, 49);
   font-weight: 600;
+  font-size: 1.7rem;
 }
 
 .assign-desc {
   margin-bottom: 20px;
+}
+
+.percent-red {
+  color: rgb(255, 70, 70);
+}
+
+.percent-green {
+  color: #3c80ff;
+}
+
+.total-completed-assigns {
+  margin-top: 20px;
 }

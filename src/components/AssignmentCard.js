@@ -19,6 +19,10 @@ const AssignmentCard = (props) => {
           name: props.name,
           description: props.desc
         }}
+        updateBadge={props.updateBadge}
+        updateProgress={props.updateProgress}
+        progress={props.progress}
+        plagBadge={props.plagBadge}
       />
     </>
   )
