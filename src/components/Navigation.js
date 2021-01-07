@@ -26,17 +26,18 @@ class Navigation extends Component {
       document.body.scrollTop = 0
       document.documentElement.scrollTop = 0
     }
-    console.log(this.props.location.pathname)
-    if (
-      this.props.user.type !== 'faculty' &&
-      this.props.location.pathname === '/faculty/dashboard'
-    ) {
-      this.props.history.push('/')
-    } else if (
-      this.props.user.type !== 'student' &&
-      this.props.location.pathname === '/student/dashboard'
-    ) {
-      this.props.history.push('/')
+    if (this.props.user) {
+      if (
+        this.props.user.type !== 'faculty' &&
+        this.props.location.pathname === '/faculty/dashboard'
+      ) {
+        this.props.history.push('/')
+      } else if (
+        this.props.user.type !== 'student' &&
+        this.props.location.pathname === '/student/dashboard'
+      ) {
+        this.props.history.push('/')
+      }
     }
   }
 

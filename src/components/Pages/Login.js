@@ -36,6 +36,8 @@ class Login extends Component {
         this.props.history.push('/student/dashboard')
       } else if (response.data.user.type === 'faculty') {
         this.props.history.push('/faculty/dashboard')
+      } else {
+        this.props.history.push('/')
       }
     } catch (err) {
       console.log(err)

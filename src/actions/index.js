@@ -7,6 +7,7 @@ import {
   GET_ASSIGNMENT,
   GET_ASSIGNMENTS,
   GET_COURSES,
+  CREATE_COURSE,
   GET_LOGGED_IN_USER,
 } from './types'
 
@@ -112,6 +113,26 @@ export const getCourses = () => async (dispatch, getState) => {
     })
     dispatch({
       type: GET_COURSES,
+      payload: response.data,
+    })
+  } catch (err) {
+    console.log(err)
+    return null
+  }
+}
+
+export const createCourse = (formValues) => async (dispatch, getState) => {
+  const { jwtToken } = getState().auth
+  try {
+    const response = await axios.post(
+      'https://funsigns.herokuapp.com/courses',
+      formValues,
+      {
+        headers: { Authorization: 'Bearer ' + jwtToken },
+      }
+    )
+    dispatch({
+      type: CREATE_COURSE,
       payload: response.data,
     })
   } catch (err) {
