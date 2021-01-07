@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import ReactMarkdown from 'react-markdown'
 import { connect } from 'react-redux'
-import { getLoggedInUser } from '../actions'
 import axios from 'axios'
 
 function AssignModal(props) {
@@ -141,6 +140,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {
-  getLoggedInUser,
-})(AssignModal)
+export default connect(mapStateToProps, {})(AssignModal)

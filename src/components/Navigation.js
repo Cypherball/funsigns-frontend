@@ -15,12 +15,17 @@ class Navigation extends Component {
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.updateUser()
+  }
 
-  componentDidUpdate(prevProps) {
+  updateUser = () => {
     if (this.props.auth.isLoggedIn) {
       this.props.getLoggedInUser()
     }
+  }
+
+  componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       //window.scrollTo(0, 0)
       document.body.scrollTop = 0

@@ -15,4 +15,8 @@ export const DELETE_COURSE = 'DELETE_COURSE'
 export const EDIT_COURSE = 'EDIT_COURSE'
 export const GET_COURSE = 'GET_COURSE'
 
+export const GET_STUDENTS = 'GET_STUDENTS'
+export const EDIT_STUDENT = 'EDIT_STUDENT'
+export const DELETE_STUDENT = 'EDIT_STUDENT'
+
 export const GET_LOGGED_IN_USER = 'GET_LOGGED_IN_USER'

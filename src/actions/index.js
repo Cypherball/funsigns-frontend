@@ -8,6 +8,7 @@ import {
   GET_ASSIGNMENTS,
   GET_COURSES,
   CREATE_COURSE,
+  EDIT_COURSE,
   GET_LOGGED_IN_USER,
 } from './types'
 
@@ -79,7 +80,7 @@ export const editAssignment = (id, formValues) => async (
   getState
 ) => {
   const { jwtToken } = getState().auth
-  const response = await axios.get(
+  const response = await axios.patch(
     `https://funsigns.herokuapp.com/assignments/${id}`,
     formValues,
     {
@@ -139,6 +140,21 @@ export const createCourse = (formValues) => async (dispatch, getState) => {
     console.log(err)
     return null
   }
+}
+
+export const editCourse = (id, formValues) => async (dispatch, getState) => {
+  const { jwtToken } = getState().auth
+  const response = await axios.patch(
+    `https://funsigns.herokuapp.com/assignments/${id}`,
+    formValues,
+    {
+      headers: { Authorization: 'Bearer ' + jwtToken },
+    }
+  )
+  dispatch({
+    type: EDIT_COURSE,
+    payload: response.data,
+  })
 }
 
 // Users ---------------------------------------------------------------
