@@ -15,13 +15,12 @@ class Navigation extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount() {}
+
+  componentDidUpdate(prevProps) {
     if (this.props.auth.isLoggedIn) {
       this.props.getLoggedInUser()
     }
-  }
-
-  componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       //window.scrollTo(0, 0)
       document.body.scrollTop = 0
@@ -211,7 +210,7 @@ class Navigation extends Component {
             </Link>
 
             <a
-              className={`nav-link hvr-grow`}
+              className={`nav-link hvr-grow clickable`}
               onClick={() => {
                 this.setState({
                   showLogoutModal: true,

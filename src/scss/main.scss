@@ -164,7 +164,7 @@ textarea {
 }
 
 .modal-content {
-  background-color: $form-bg;
+  background-color: $body-bg;
 }
 
 @media (min-width: 992px) {
@@ -233,20 +233,8 @@ footer {
   }
 }
 
-.modal-title {
-  color: $primary;
-}
-
-.modal-body {
-  color: $gray-900;
-}
-
-.modal-body p {
-  margin-bottom: 0;
-}
-
 .form-label {
-  color: $purple;
+  //color: $purple;
   font-weight: 600;
   margin-top: 10px;
 }
